@@ -1,4 +1,6 @@
 import json
+import datetime
+import enum
 
 from ..common import (
     BaseEnum,
@@ -13,6 +15,11 @@ from ..network import (
 
 from .state import State
 
+class BallotVoteResult(BaseEnum):
+    agree = 'Y'
+    disagree = 'N'        
+    none = enum.auto()  
+
 class Ballot:
     # class AlreadyVotedError(Exception):
     #     pass
@@ -23,6 +30,7 @@ class Ballot:
     class NotExpectedBallotError(Exception):
         pass
 
+    timestamp = None
     state = None
     name = None
     message = None
@@ -30,7 +38,7 @@ class Ballot:
     is_broadcasted = None
     node_result = None
 
-    def __init__(self, node, state, node_result):
+    def __init__(self, node, state, node_result=BallotVoteResult.none, timestamp=None):
         assert isinstance(node, Node)
         assert isinstance(node.quorum, Quorum)
         assert isinstance(state, State)
@@ -44,8 +52,13 @@ class Ballot:
         self.is_broadcasted = False
         self.node_result = node_result
 
+        if timestamp is None: 
+            self.timestamp = str(datetime.datetime.now())
+        else:
+            self.timestamp = timestamp
+
     def __repr__(self):
-        return '<Ballot: node=%(node)s state=%(state)s voted=%(voted)s node_result=%(node_result)s is_broadcasted=%(is_broadcasted)s>' % self.__dict__
+        return '<Ballot: timestamp=%(timestamp)s node=%(node)s state=%(state)s voted=%(voted)s node_result=%(node_result)s is_broadcasted=%(is_broadcasted)s>' % self.__dict__
 
     def to_dict(self):
         vh = dict()
@@ -57,6 +70,7 @@ class Ballot:
             vh[state] = copied
 
         return dict(
+            timestamp=self.timestamp,
             node=self.node.to_dict(simple=True),
             state=self.state.name,
             state_history=list(map(lambda x: x.name, self.state_history)),
@@ -244,6 +258,3 @@ class BallotMessage:
         return self.message
 
 
-class BallotVoteResult(BaseEnum):
-    agree = 'Y'
-    disagree = 'N'        

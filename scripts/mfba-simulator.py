@@ -4,6 +4,7 @@ import json  # noqa
 import time  # noqa
 import argparse
 import asyncio
+import signal
 import collections
 import logging
 import sys
@@ -25,6 +26,10 @@ from mfba.common import (
 
 MESSAGE = None
 
+def cancel_task_handler():    
+    for task in asyncio.Task.all_tasks():
+        task.cancel()    
+    sys.exit(1)
 
 async def check_message_in_storage(node):
     global MESSAGE
@@ -171,6 +176,8 @@ if __name__ == '__main__':
     servers = dict()
 
     loop = asyncio.get_event_loop()
+    # add handler when receive stop signal
+    loop.add_signal_handler(signal.SIGINT, cancel_task_handler)
 
     for name, config in nodes_config.items():
         nodes[name] = Node(name, config.endpoint, quorums[name])
@@ -194,9 +201,9 @@ if __name__ == '__main__':
     log.main.info('inject message %s -> n0: %s', client0_node.name, MESSAGE)
 
     try:
-        loop.run_forever()
-    except (KeyboardInterrupt, SystemExit):
-        log.main.debug('goodbye~')
-        sys.exit(1)
+        loop.run_forever()        
+    except (KeyboardInterrupt, SystemExit, asyncio.CancelledError):
+        log.main.debug('Tasks has been canceled')
     finally:
         loop.close()
+        log.main.info('goodbye~')
