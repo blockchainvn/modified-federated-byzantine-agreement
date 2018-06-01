@@ -6,7 +6,7 @@
     "url": "https://github.com/agiletechvn/MFBA.git"
   },
   "scripts": {
-    "start": "docker-compose up -d",
+    "start": "docker-compose up -d && docker-compose exec mfba pip install colorlog",
     "bash": "docker-compose exec mfba bash"
   },
   "engines": {

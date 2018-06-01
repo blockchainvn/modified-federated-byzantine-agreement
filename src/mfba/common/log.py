@@ -8,6 +8,7 @@ class Log:
     transport = logging.getLogger('TRANSPORT')
     server = logging.getLogger('SERVER')
     consensus = logging.getLogger('CONSENSUS')
+    blockchain = logging.getLogger('BLOCKCHAIN')
     ballot = logging.getLogger('BALLOT')
     storage = logging.getLogger('STORAGE')
 
@@ -44,6 +45,7 @@ class Log:
         self.server.setLevel(level)
         self.server.setLevel(level)
         self.consensus.setLevel(level)
+        self.blockchain.setLevel(level)
         self.ballot.setLevel(level)
         self.storage.setLevel(level)
 

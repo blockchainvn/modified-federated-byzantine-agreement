@@ -11,7 +11,6 @@ At first, start and log into docker container.
 ```
 $ yarn start
 $ yarn bash
-$ pip install colorlog
 ```
 
 Done!
@@ -22,7 +21,7 @@ Simple usage
 
 ```
 $ simulator -h
-usage: mfba-simulator.py [-h] [-s] [-nodes NODES] [-trs TRS]
+usage: simulator [-h] [-s] [-nodes NODES] [-trs TRS]
 
 optional arguments:
   -h, --help    show this help message and exit

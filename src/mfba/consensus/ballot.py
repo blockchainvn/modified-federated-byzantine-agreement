@@ -167,6 +167,8 @@ class Ballot:
 
         return
 
+
+    # if above the threshold then the consensus of the quorum is finalizied
     def check_threshold(self):
         voted = self.voted.copy()
 
@@ -183,6 +185,7 @@ class Ballot:
 
             agreed_votes = list(filter(lambda x: x == BallotVoteResult.agree, target.values()))
 
+            # agreed votes is above the minimum quorum defined by the threshold
             is_passed = len(agreed_votes) >= self.node.quorum.minimum_quorum
             log.ballot.info(
                 '%s: threshold checked: threshold=%s voted=%s minimum_quorum=%s agreed=%d is_passed=%s',

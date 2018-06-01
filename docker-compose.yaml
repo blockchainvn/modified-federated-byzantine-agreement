@@ -22,7 +22,7 @@ services:
     container_name: mfba
     
     volumes:      
-      - ./scripts/mfba-simulator.py:/usr/bin/simulator
+      - ./scripts/simulator.py:/usr/bin/simulator
       - ./src:/project
     tty: true    
     working_dir: /project    

@@ -10,6 +10,14 @@ class State(BaseEnum):
     accept = enum.auto()
     all_confirm = enum.auto()
 
+    @classmethod
+    def get_from_value(cls, v):
+        for i in list(cls):
+            if i.value == v:
+                return i
+
+        return
+
     def get_next(self):
         for i in list(self.__class__):
             if i.value > self.value:

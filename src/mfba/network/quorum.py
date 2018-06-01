@@ -21,13 +21,17 @@ class Quorum:
     def is_inside(self, node):
         return len(list(filter(lambda x: x.name == node.name, self.validators))) > 0
 
+    # remove node from quorum
     def remove(self, node):
         if not self.is_inside(node):
             return
 
         self.validators = filter(lambda x: x != node, self.validators)
-
         return
+
+    # add node to quorum
+    def insert(self, node):
+        self.validators.append(node)        
 
     @property
     def minimum_quorum(self):
