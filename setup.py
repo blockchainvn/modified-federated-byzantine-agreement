@@ -9,11 +9,11 @@ commit = subprocess.Popen(
 ).stdout.read().decode('utf-8').strip()
 
 setup(
-    name='simple-fba',
+    name='modified-fba',
     version='0.2+%s' % commit,
-    description='simple implementation and simulation of FBA',
-    author='Spike^ekipS',
-    author_email='spikeekips@gmail.com',
+    description='Modified implementation and simulation of FBA',
+    author='Tupt',
+    author_email='tupt@agiletech.vn',
     license='GPLv3+',
     keywords='blockchain fba scp stellar quorum python byzantine agreement',
     install_requires=(
@@ -22,7 +22,7 @@ setup(
     package_dir={'': 'src'},
     packages=find_packages('src', exclude=('test',)),
     scripts=(
-        'scripts/simple-fba-simulator.py',
+        'scripts/mfba-simulator.py',
     ),
     zip_safe=False,
 )

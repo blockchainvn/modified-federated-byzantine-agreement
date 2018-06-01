@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import json  # noqa
 import time  # noqa
 import argparse
@@ -7,15 +9,15 @@ import logging
 import sys
 from uuid import uuid1
 
-from simple_fba.fba_consensus import Consensus
-from simple_fba.network import (
+from mfba.fba_consensus import Consensus
+from mfba.network import (
     BaseServer,
     LocalTransport,
     Message,
     Node,
     Quorum,
 )
-from simple_fba.util import (
+from mfba.util import (
     log,
 )
 
