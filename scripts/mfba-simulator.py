@@ -9,7 +9,8 @@ import logging
 import sys
 from uuid import uuid1
 
-from mfba.fba_consensus import Consensus
+from mfba.consensus import FBAConsensus as Consensus
+
 from mfba.network import (
     BaseServer,
     LocalTransport,
@@ -17,7 +18,7 @@ from mfba.network import (
     Node,
     Quorum,
 )
-from mfba.util import (
+from mfba.common import (
     log,
 )
 
